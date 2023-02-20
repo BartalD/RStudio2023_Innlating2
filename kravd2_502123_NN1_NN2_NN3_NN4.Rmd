@@ -39,6 +39,11 @@ library(tidyverse)
 # set theme used for plotting
 theme_set(theme_bw(base_size = 12))
 
+# Modelr package
+library(modelr)
+
+library(ggplot2)
+
 ```
 
 
@@ -48,25 +53,41 @@ theme_set(theme_bw(base_size = 12))
 > 1a) Goym (assign) `heights` frá pakka `modelr` í objektið `heights`. Útskriva síðani `heights` á einfaldasta hátt, sum tú kanst gera. Hvørjar eindir er hæddin og vektin uppgivin í (tip: brúka hjálpina).
 
 ```{r }
+heights <- heights
 
+heights
 ```
+    According to help(heights), the weight is in pounds and the height is in inches.
 
 > 1b) legg variabul `hgt` og `wgt` afturat talvuni `heights` har tú umroknar hæddina til centimetrar og vektina til kg, og útles `heights` umaftur.
 
 ```{r}
+heights$hgt <- heights$height * 2.54
 
+heights$wgt <- heights$weight * 0.45359237
+
+heights
 ```
 
 > 1c)  plotta eitt box-plot av `heights` við `sex` sum x-aksa og `hgt` sum y-aksa. Hvørjar ábendingar geva hesi plot um hæddirnar hjá kvinnum og monnum í hesum datasetti?
 
 ```{r}
-
+ggplot(heights, aes(x = sex, y = hgt)) + 
+  geom_boxplot() +
+  xlab("Sex") +
+  ylab("Height (cm)") +
+  ggtitle("Distribution of heights by sex")
 ```
 
 > 1d) ger eitt histogram av variabul `hgt` í `heights` sum facet-plot í einari kolonnu eftir variabul `sex` har tú til dømis brúkar `binwidth = 1`.
 
 ```{r}
-
+ggplot(heights, aes(x = hgt)) +
+  geom_histogram(binwidth = 1, fill = "blue") +
+  facet_wrap(~ sex, ncol = 1) +
+  xlab("Height (cm)") +
+  ylab("Count") +
+  ggtitle("Distribution of heights by sex")
 ```
 
 > 1e) ger eitt frekvensplot av variabul `hgt` í `heights` har tú til dømis brúkar `binwidth = 8` í einari mynd við tveimum kurvum litaðar eftir variabul `sex`.
