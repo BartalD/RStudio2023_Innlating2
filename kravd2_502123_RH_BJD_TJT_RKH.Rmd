@@ -238,7 +238,7 @@ hgt_sim
 > 4a) ger eitt barplot av binomial-fordeilingini `dbinom(x, size, prob)` sum facet-plot fyri fast `prob = 0.61` og varierandi `size = 1, 2, 3, 10`, so tú fært fýra deilmyndir. Greið frá hvat plottið vísir.
 
 ```{r}
-x_values <- 1:10
+x_values <- -2:10
 prob <- 0.61
 size <- c(1,2,3,10)
 
@@ -265,7 +265,7 @@ ggplot() +
 ```{r}
 x_values <- 1:200
 prob_value <- 0.61
-size <- c(1, 2, 3, 10, 100, 200)
+size <- c(1,2,3,10, 100, 200)
 
 ndata <- NULL
 for (i in size) {
