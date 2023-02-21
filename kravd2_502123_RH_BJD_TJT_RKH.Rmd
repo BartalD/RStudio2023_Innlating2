@@ -374,13 +374,29 @@ data_bp
 
 
 ```{r}
-n = c(10, 50, 100)
-data = tibble(x = 1, n = n, p = 2/n, res = dbinom(1, n, 2/n))
-data
+#data = tibble(x = 1, n = n, p = 2/n, res = dbinom(1, n, 2/n))
+#data
 #data = tibble(dbinom(c(1, 1, 1), 100, 2/100), )
-ggplot(data, aes(x = res)) +
-  geom_bar(colour = n, fill = n) +
-  facet_wrap(~ n)
+
+n_values <- c(10, 50, 100)
+p <- 2/n
+
+pdata <- NULL
+for (n in n_values) {
+  tb_data <- NULL
+  tb_data <- tibble(
+    x = 1:10,
+    prob = 2/n,
+    y = dbinom(x, n_values, prob)
+    
+  )
+  pdata <- rbind(pdata, tb_data)
+}
+
+
+ggplot(pdata, aes(y)) +
+  geom_bar()
+#  facet_wrap(~ n)
   #facet_wrap()
 #data
 
