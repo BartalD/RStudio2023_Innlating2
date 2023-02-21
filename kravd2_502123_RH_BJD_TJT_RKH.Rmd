@@ -288,11 +288,11 @@ ggplot() +
 > 4c) ger eitt barplot av poisson-fordeilingini sum facet-plot fyri varierandi `lambda = 0.0061, 0.061, 0.61, 6.1`, so tú fært fýra deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `rate`.
 
 ```{r}
-x_values <- 0:20
+x_values <- 0:15
 lambda <- c(0.0061, 0.061, 0.61, 6.1)
 
 pdata <- NULL
-for (i in size) {
+for (i in lambda) {
   tb_data <- NULL
   tb_data <- tibble(
     x = x_values,
