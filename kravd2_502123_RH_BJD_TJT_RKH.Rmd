@@ -128,8 +128,27 @@ hgt_summary
 ```{r}
 # Tøl frá https://en.wikipedia.org/wiki/Average_human_height_by_country
 # Land brúk: Bretland
-hgt_males   <- tibble(hgt = rnorm(3604, mean = 175, sd = 2.5), sex = "male")
-hgt_females <- tibble(hgt = rnorm(3402, mean = 161.3, sd = 2.5), sex = "female")
+hgt_summary
+
+#df['r3',]
+
+male <- hgt_summary[hgt_summary$sex == 'male',] 
+female <- hgt_summary[hgt_summary$sex == 'female',] 
+
+hgt_males   <- tibble(
+   hgt = rnorm(male$counts, 
+           male$hgt_mean, 
+           male$hgt_sd),
+   sex = male$sex)
+hgt_males
+
+hgt_females   <- tibble(
+   hgt = rnorm(female$counts, 
+           female$hgt_mean, 
+           female$hgt_sd),
+  sex = female$sex)
+hgt_females
+
 
 hgt_sim <-
   rbind(
@@ -137,7 +156,7 @@ hgt_sim <-
     hgt_females
   )
 
-hgt_sim
+arrange(hgt_sim, desc(hgt_sim$hgt))
 ```
 
 > 2b) endurtak plottið frá 1c) nú við data `hgt_sim`.
@@ -320,30 +339,28 @@ ggplot(data=pdata, ) +
 > 4d) ger eina tibble `data_bino` og eina tibble `data_pois` báðar við variablum `x, y, label`. Í `data_bino` skal variabul `y` vera binomial-fordeilings data fyri `size = 200` og `prob = 0.61/200`. Í `data_pois` skal variabul `y` vera poisson-fordeilings data fyri `lambda = 0.61`. Í variabul `label` seta tit hóskandi tekst fyri fordeilingarnar at brúka í einum facet-plotti. Rekkjubind `data_bino` og `data_pois` í tibble `data_bp` og les hana út.
 
 ```{r}
-# Eg haldi at okkurt manglar her, label skal vera "hóskandi"
-# 4e og 4f eru skeivir tí 4d er skeivt....
+x_values <- 0:5
 
-
-x_values <- 0:10
 size <- 200
 prob <- 0.61/size
+
 lambda <- 0.61
 
 data_bino <- tibble(
   x = x_values,
   y = dbinom(x_values, size, prob),
-  label = "size"
+  # label = "dbinom(x_values, size, prob)"
+  label = sprintf("dbinom(%s:%s, %s, %s)", min(x_values),max(x_values), size, prob)
 )
-
 
 data_pois <- tibble(
   x = x_values,
   y = dpois(x,lambda),
-  label = "lambda"
+  label = sprintf("dpois(%s:%s, %s)", min(x_values),max(x_values), lambda)
 )
 
-data_bino
-data_pois
+# data_bino
+# data_pois
 
 data_bp <- rbind(data_bino, data_pois)
 data_bp
