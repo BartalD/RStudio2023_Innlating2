@@ -288,6 +288,32 @@ ggplot() +
 > 4c) ger eitt barplot av poisson-fordeilingini sum facet-plot fyri varierandi `lambda = 0.0061, 0.061, 0.61, 6.1`, so tú fært fýra deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `rate`.
 
 ```{r}
+x_values <- 0:20
+lambda <- c(0.0061, 0.061, 0.61, 6.1)
+
+pdata <- NULL
+for (i in size) {
+  tb_data <- NULL
+  tb_data <- tibble(
+    x = x_values,
+    lambda = i,
+    y = dpois(x,lambda),
+    ppois = ppois(x,lambda),
+    ppois_rtail = 1 - ppois(x,lambda)
+    )
+  
+  pdata <- rbind(pdata, tb_data)
+}
+
+ggplot(data=pdata, ) +
+  geom_bar(aes(x, y), stat = "identity") +
+  # geom_bar(aes(x, y, fill = "dpois(x, lambda)"), stat = "identity") +
+  geom_line(aes(x, ppois, colour = "a. ppois(x, lambda)")) +
+  geom_line(aes(x, ppois_rtail, colour = "b. 1 - ppois(x, lambda)")) +
+  scale_y_continuous(breaks = seq(0, 1, 0.2))+
+  scale_x_continuous(breaks=seq(min(x_values), max(x_values), 5)) +
+  ylab("pmf") +
+  facet_wrap(~ lambda, labeller = label_both)
 
 ```
 
