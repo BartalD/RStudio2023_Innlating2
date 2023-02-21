@@ -128,8 +128,27 @@ hgt_summary
 ```{r}
 # Tøl frá https://en.wikipedia.org/wiki/Average_human_height_by_country
 # Land brúk: Bretland
-hgt_males   <- tibble(hgt = rnorm(3604, mean = 175, sd = 2.5), sex = "male")
-hgt_females <- tibble(hgt = rnorm(3402, mean = 161.3, sd = 2.5), sex = "female")
+hgt_summary
+
+#df['r3',]
+
+male <- hgt_summary[hgt_summary$sex == 'male',] 
+female <- hgt_summary[hgt_summary$sex == 'female',] 
+
+hgt_males   <- tibble(
+   hgt = rnorm(male$counts, 
+           male$hgt_mean, 
+           male$hgt_sd),
+   sex = male$sex)
+hgt_males
+
+hgt_females   <- tibble(
+   hgt = rnorm(female$counts, 
+           female$hgt_mean, 
+           female$hgt_sd),
+  sex = female$sex)
+hgt_females
+
 
 hgt_sim <-
   rbind(
@@ -137,7 +156,7 @@ hgt_sim <-
     hgt_females
   )
 
-hgt_sim
+arrange(hgt_sim, desc(hgt_sim$hgt))
 ```
 
 > 2b) endurtak plottið frá 1c) nú við data `hgt_sim`.
