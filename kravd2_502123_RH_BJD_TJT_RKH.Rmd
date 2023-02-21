@@ -263,9 +263,9 @@ ggplot() +
 > 4b) ger eitt barplot av binomial-fordeilingini sum facet-plot fyri varierandi `size = 1, 2, 3, 10, 100, 200` og varierandi `prob = 0.61/size`, so tú fært 6 deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `size` og fallandi virði av `prob = 0.61/size`, tá vit soleiðis halda `size*prob = 0.61` konstant (í teori: `n*p` konstant).
 
 ```{r}
-x_values <- 1:200
+x_values <- -2:5
 prob_value <- 0.61
-size <- c(1,2,3,10, 100, 200)
+size <- c(1,2,3,10,100,200)
 
 ndata <- NULL
 for (i in size) {
@@ -280,7 +280,7 @@ for (i in size) {
 }
 
 ggplot() +
-  geom_bar(data=ndata, aes(x, prob), stat = "identity") +
+  geom_bar(data=ndata, aes(x, y), stat = "identity") +
   ylab("prob") +
   facet_wrap(~ size, labeller = label_both)
 ```
