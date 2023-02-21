@@ -237,40 +237,33 @@ hgt_sim
 > 4a) ger eitt barplot av binomial-fordeilingini `dbinom(x, size, prob)` sum facet-plot fyri fast `prob = 0.61` og varierandi `size = 1, 2, 3, 10`, so tú fært fýra deilmyndir. Greið frá hvat plottið vísir.
 
 ```{r}
-x_values <- 1:100
+x_values <- 1:10
 prob <- 0.61
-# size <- c(1,2,3,10)
 
 pdata_s1 <- tibble(x = x_values,
                     size = 1,
-                    y = dbinom(x_values, size, prob))
+                    prob = dbinom(x_values, size, prob))
 pdata_s2 <- tibble(x = x_values,
                     size = 2,
-                    y = dbinom(x_values, size, prob))
+                    prob = dbinom(x_values, size, prob))
 pdata_s3 <- tibble(x = x_values,
                     size = 3,
-                    y = dbinom(x_values, size, prob))
+                    prob = dbinom(x_values, size, prob))
 pdata_s10 <- tibble(x = x_values,
                     size = 10,
-                    y = dbinom(x_values, size, prob))
+                    prob = dbinom(x_values, size, prob))
 
-pdata_s <- rbind(pdata_s1
-                 # pdata_n20,
-                 # pdata_n50,
-                 # pdata_n100
-                 )
+pdata_s <- rbind(pdata_s1,
+                 pdata_s2,
+                 pdata_s3,
+                 pdata_s10)
 
 ggplot() +
-  geom_bar(data=pdata_s, aes(x, y), stat = "identity") +
-  # ylab("pmf") +
-  facet_wrap(~ size, labeller = label_both) #+
-
-# df <- data.frame(x, dbinom=dbinom(x, size, prob)) 
-# 
-# ggplot(df, aes(x, dbinom)) +
-#   geom_bar(stat='identity') + 
-#   facet_wrap(~x)
+  geom_bar(data=pdata_s, aes(x, prob), stat = "identity") +
+  ylab("pmf") +
+  facet_wrap(~ size, labeller = label_both)
 ```
+    
 
 > 4b) ger eitt barplot av binomial-fordeilingini sum facet-plot fyri varierandi `size = 1, 2, 3, 10, 100, 200` og varierandi `prob = 0.61/size`, so tú fært 6 deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `size` og fallandi virði av `prob = 0.61/size`, tá vit soleiðis halda `size*prob = 0.61` konstant (í teori: `n*p` konstant).
 
