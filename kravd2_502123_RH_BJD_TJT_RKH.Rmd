@@ -168,13 +168,24 @@ arrange(hgt_sim, desc(hgt_sim$hgt))
 > 2c) endurtak plottið frá 1d) nú við data `hgt_sim`.
 
 ```{r}
-
+ggplot(hgt_sim, aes(x = hgt)) +
+  geom_histogram(binwidth = 1, fill = "blue") +
+  facet_wrap(~ sex, ncol = 1) +
+  xlab("Height (cm)") +
+  ylab("Count") +
+  ggtitle("Distribution of heights by sex, simulated data")
 ```
 
 > 2d) endurtak plottið frá 2c) við data `hgt_sim`, har tú hesuferð ger histogrammið við density og eisini leggur density-kurvar útyvir bæði histogrammini í tínum facet-plotti við brúk av `geom_density()`.
 
 ```{r}
-
+ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
+  geom_histogram(binwidth = 1, fill = "blue") +
+  geom_density(colour = "red", aes(y = ..density..)) +
+  facet_wrap(~ sex, ncol = 1) +
+  xlab("Height (cm)") +
+  ylab("Count") +
+  ggtitle("Distribution of heights by sex, simulated data")
 ```
 
 > 2e) endurtak plottið frá 2d) við data `hgt_sim`, har tú ger histogrammið við density, men hesuferð leggur density-kurvar útyvir bæði histogrammini í tínum facet-plotti við brúk av normalfordeilingini `dnorm()` (tip: ger eyka tibbles `ndata_m` og `ndata_f` við teoretiskum normalfordeilingsdata fyri kynini, har tú ger hóskandi variablar: `x = x_values, y = dnorm(x_values, mean, sd), sex`, sum tú síðani rekkjubindur til `ndata` og brúkar til at plotta kurvarnar). 
