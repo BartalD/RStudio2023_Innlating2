@@ -58,6 +58,7 @@ library(ggplot2)
 > 1a) Goym (assign) `heights` frá pakka `modelr` í objektið `heights`. Útskriva síðani `heights` á einfaldasta hátt, sum tú kanst gera. Hvørjar eindir er hæddin og vektin uppgivin í (tip: brúka hjálpina).
 
 ```{r }
+# test
 heights <- heights
 
 heights
