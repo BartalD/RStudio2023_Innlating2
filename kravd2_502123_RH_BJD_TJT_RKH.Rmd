@@ -1,8 +1,13 @@
 ---
 title: "Kravd innlating 2"
-author: "Rasmus Hansen, Bartal Jógvansson Djurhuus, Torkil Janusarson Thomsen, Rúni Klein Hansen"
-date: "Innlating í Moodle: seinast um kvøldið 28. februar 2023. Endurbrúka eisini fílnavnið á hesum template-skjalinum, sum tit lata inn, har tit seta tykkara forbókstavir inn fyri RH_BJD_TJT_RKH."
-output: html_notebook
+author: Rasmus Hansen, Bartal Jógvansson Djurhuus, Torkil Janusarson Thomsen, Rúni
+  Klein Hansen
+date: "Innlating í Moodle: seinast um kvøldið 28. februar 2023. Endurbrúka eisini
+  fílnavnið á hesum template-skjalinum, sum tit lata inn, har tit seta tykkara forbókstavir
+  inn fyri RH_BJD_TJT_RKH."
+output:
+  html_document:
+    df_print: paged
 ---
 
 ## Dátuvísindi og hagfrøði við RStudio
