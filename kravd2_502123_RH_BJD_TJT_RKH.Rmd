@@ -109,7 +109,18 @@ ggplot(heights, aes(x = hgt)) +
 > 2a) simulera eina talvu `hgt_sim` við normalfordeildum hæddum fyri 3402 kvinnur og 3604 menn við brúk av upplýsingum úr talvu `hgt_summary`. Ger fyrst eina tibble `hgt_males` og eina tibble `hgt_females` grundað á simuleraði data frá hvør sína normalfordeiling, sum tit síðani rekkjubinda í tibble `hgt_sim`.  Talvan `hgt_sim` skal innihalda variablarnar: `hgt`, sum skal vera numerisk og `sex`, sum skal vera ein faktor. Les lidnu talvuna út.
 
 ```{r}
+# Tøl frá https://en.wikipedia.org/wiki/Average_human_height_by_country
+# Land brúk: Bretland
+hgt_males   <- tibble(hgt = rnorm(3604, mean = 175, sd = 2.5), sex = "male")
+hgt_females <- tibble(hgt = rnorm(3402, mean = 161.3, sd = 2.5), sex = "female")
 
+hgt_sim <-
+  rbind(
+    hgt_males,
+    hgt_females
+  )
+
+hgt_sim
 ```
 
 > 2b) endurtak plottið frá 1c) nú við data `hgt_sim`.
@@ -256,6 +267,15 @@ ggplot(heights, aes(x = hgt)) +
 
 
 ```{r}
+n = c(10, 50, 100)
+data = tibble(x = 1, n = n, p = 2/n, res = dbinom(1, n, 2/n))
+data
+#data = tibble(dbinom(c(1, 1, 1), 100, 2/100), )
+ggplot(data, aes(x = res)) +
+  geom_bar(colour = n, fill = n) +
+  facet_wrap(~ n)
+  #facet_wrap()
+#data
 
 ```
 
