@@ -403,7 +403,9 @@ pdata
 
 ggplot(pdata) +
   geom_bar(aes(x, y), stat = "identity") +
-  facet_wrap(~ n)
+  facet_wrap(~ n, labeller = label_both) +
+  xlab("Amount of failed transmissions") +
+  ylab("Chance of transmission failure")
 
 ```
 
