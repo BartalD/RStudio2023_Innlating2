@@ -78,6 +78,7 @@ ggplot(heights, aes(x = sex, y = hgt)) +
   ylab("Height (cm)") +
   ggtitle("Distribution of heights by sex")
 ```
+    Hettar vísir at varisansan hjá kvinnum og monnum er tann sama, tvs. fyri baði kvinnur og menn eru tað líka nógv stór sum smá, medianin er tann sama, men har er munur á saman borði við hvørt annað í gjøgnumsnit eru menn størri.
 
 > 1d) ger eitt histogram av variabul `hgt` í `heights` sum facet-plot í einari kolonnu eftir variabul `sex` har tú til dømis brúkar `binwidth = 1`.
 
