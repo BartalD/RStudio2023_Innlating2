@@ -94,7 +94,9 @@ ggplot(heights, aes(x = hgt)) +
 > 1e) ger eitt frekvensplot av variabul `hgt` í `heights` har tú til dømis brúkar `binwidth = 8` í einari mynd við tveimum kurvum litaðar eftir variabul `sex`.
 
 ```{r}
-
+#?heights
+ggplot(heights, aes(x = hgt, color = sex, fill = sex)) +
+  geom_freqpoly(binwidth = 8)
 ```
 
 > 1f) ger við brúk av einum pipe-setningi eitt yvirlit av talvu `heights` bólkað uppá variabul `sex`, har tú telur antal av observatiónum `n` og útroknar miðal hædd `hgt_mean` og standard frávik av hæddini `hgt_sd` fyri hvørt kynið. Goym yvirlitið í talvu `hgt_summary` og les talvuna út.
