@@ -382,9 +382,6 @@ ggplot(data = data_bp) +
 
 
 ```{r}
-#data = tibble(x = 1, n = n, p = 2/n, res = dbinom(1, n, 2/n))
-#data
-#data = tibble(dbinom(c(1, 1, 1), 100, 2/100), )
 
 n_values <- c(10, 50, 100)
 p <- 2/n
@@ -393,20 +390,20 @@ pdata <- NULL
 for (n in n_values) {
   tb_data <- NULL
   tb_data <- tibble(
-    x = 1:10,
+    x = 1:20,
     prob = 2/n,
-    y = dbinom(x, n_values, prob)
+    n = n,
+    y = dbinom(x, n, prob)
     
   )
   pdata <- rbind(pdata, tb_data)
 }
 
+pdata
 
-ggplot(pdata, aes(y)) +
-  geom_bar()
-#  facet_wrap(~ n)
-  #facet_wrap()
-#data
+ggplot(pdata) +
+  geom_bar(aes(x, y), stat = "identity") +
+  facet_wrap(~ n)
 
 ```
 
