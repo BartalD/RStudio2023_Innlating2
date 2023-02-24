@@ -218,20 +218,13 @@ ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
 > hvørji eru teoretisku normalfordeilings-sannlíkindini fyri at ein maður í `hgt_sim` er `170-180 cm` høgur? Svara sama spurningi fyri kvinnur (tip: brúka `pnorm()` í báðum førum).
 
 ```{r}
-pnorm(180, male$hgt_mean, male$hgt_sd) - pnorm(170, male$hgt_mean, male$hgt_sd)
-pnorm(180, female$hgt_mean, female$hgt_sd) - pnorm(170, female$hgt_mean, female$hgt_sd)
+
 ```
 
 >  hvørji eru simuleraðu normalfordeilings-sannlíkindini fyri at ein maður í `hgt_sim` er `170-180 cm` høgur? Svara sama spurningi fyri kvinnur (tip: ger ein pipe-setning av `hgt_sim` bólkað uppá `sex` har tú roknar bæði simuleraðu sannlíkindini).
 
 ```{r}
-# hgt_sim
 
-hgt_sim %>%
-  group_by(sex) %>%
-  summarise(
-    pnorm = pnorm(180, mean(hgt), sd(hgt)) - pnorm(170, mean(hgt), sd(hgt))
-  )
 ```
 
 > 3b) tekna teoretisku normalfordeilingarnar av `hgt` fyri kvinnur og menn og lita arealini undir kurvunum hoyrandi til fyrra spurningin í 3a) (tip: brúka `geom_area()`).
@@ -419,26 +412,27 @@ ggplot(data = data_bp) +
 ```{r}
 
 n_values <- c(10, 50, 100)
-p <- 2/n
 
 pdata <- NULL
 for (n in n_values) {
   tb_data <- NULL
   tb_data <- tibble(
-    x = 1:20,
-    prob = 2/n,
     n = n,
+    x = 0:n,
+    prob = 2/n,
     y = dbinom(x, n, prob)
     
   )
   pdata <- rbind(pdata, tb_data)
 }
-
-pdata
-
 ggplot(pdata) +
   geom_bar(aes(x, y), stat = "identity") +
-  facet_wrap(~ n, labeller = label_both) +
+  facet_wrap(~ n,nrow=n, labeller = label_both,scales="free_x") +
+  xlab("Amount of failed transmissions") +
+  ylab("Chance of transmission failure")
+ggplot(pdata) +
+  geom_bar(aes(x, y), stat = "identity") +
+  facet_wrap(~ n,nrow=n, labeller = label_both,scales="free_y") +
   xlab("Amount of failed transmissions") +
   ylab("Chance of transmission failure")
 
@@ -447,27 +441,37 @@ ggplot(pdata) +
 > 5b) ger eina tibble `data_bino` og eina tibble  `data_pois` báðar við variablum `x, y, label`. Í `data_bino` skal variabul `y` vera binomial-fordeilings data fyri `n = 10, 50, 100` og `p = 2/n`. Í `data_pois` skal variabul `y` vera poisson-fordeilings data fyri `lambda = 2`. Í variabul `label` seta tit hóskandi tekst fyri fordeilingarnar at brúka í einum facet-plotti (tip: brúka til dømis `paste()` í kodu at seta labels automatiskt til `1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 50, 0.04)`, `3. dbinom(x, 100, 0.02)` og `4. dpois(x, 2)`). Rekkjubind `data_bino` og `data_pois` í tibble `data_bp` og les hana út.
 
 ```{r}
-data_bino <- tibble(
+data_bino <- rbind(tibble(
   x = 0:10,
   y = c(dbinom(0:10, 10, 0.2)),
   label = rep("1. dbinom(x, 10, 0.2)", 11)
-) %>%
-  bind_rows(tibble(
-    x = 0:10,
-    y = c(dbinom(0:10, 50, 0.04)),
-    label = rep("2. dbinom(x, 50, 0.04)", 11)
-  )) %>%
-  bind_rows(tibble(
-    x = 0:10,
-    y = c(dbinom(0:10, 100, 0.02)),
-    label = rep("3. dbinom(x, 100, 0.02)", 11)
+)
+,
+tibble(
+    x = 0:50,
+    y = c(dbinom(0:50, 50, 0.04)),
+    label = rep("2. dbinom(x, 50, 0.04)", 51)
+    )
+,
+tibble(
+    x = 0:100,
+    y = c(dbinom(0:100, 100, 0.02)),
+    label = rep("3. dbinom(x, 100, 0.02)", 101)
   ))
 
-data_pois <- tibble(
+data_pois
+tibble(
   x = 0:10,
   y = dpois(0:10, 2),
   label = rep("4. dpois(x, 2)", 11)
 )
+tibble(
+  x = 0:10,
+  y = dpois(0:10, 2),
+  label = rep("4. dpois(x, 2)", 11)
+)
+
+
 
 data_bp <- bind_rows(data_bino, data_pois)
 
