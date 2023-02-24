@@ -225,7 +225,13 @@ pnorm(180, female$hgt_mean, female$hgt_sd) - pnorm(170, female$hgt_mean, female$
 >  hvørji eru simuleraðu normalfordeilings-sannlíkindini fyri at ein maður í `hgt_sim` er `170-180 cm` høgur? Svara sama spurningi fyri kvinnur (tip: ger ein pipe-setning av `hgt_sim` bólkað uppá `sex` har tú roknar bæði simuleraðu sannlíkindini).
 
 ```{r}
+# hgt_sim
 
+hgt_sim %>%
+  group_by(sex) %>%
+  summarise(
+    pnorm = pnorm(180, mean(hgt), sd(hgt)) - pnorm(170, mean(hgt), sd(hgt))
+  )
 ```
 
 > 3b) tekna teoretisku normalfordeilingarnar av `hgt` fyri kvinnur og menn og lita arealini undir kurvunum hoyrandi til fyrra spurningin í 3a) (tip: brúka `geom_area()`).
