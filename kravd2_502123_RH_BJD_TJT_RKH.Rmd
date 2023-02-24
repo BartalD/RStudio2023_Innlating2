@@ -218,12 +218,19 @@ ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
 > hvørji eru teoretisku normalfordeilings-sannlíkindini fyri at ein maður í `hgt_sim` er `170-180 cm` høgur? Svara sama spurningi fyri kvinnur (tip: brúka `pnorm()` í báðum førum).
 
 ```{r}
+male_filter <- filter(hgt_sim, sex == 'male')
+mu_male <- mean(male_filter$hgt)
+pnorm(180, mu_male, 2) - pnorm(170, mu_male, 2)
 
+female_filter <- filter(hgt_sim, sex == 'female')
+mu_female <- mean(female_filter$hgt)
+pnorm(180, mu_female, 2) - pnorm(170, mu_female,2)
 ```
 
 >  hvørji eru simuleraðu normalfordeilings-sannlíkindini fyri at ein maður í `hgt_sim` er `170-180 cm` høgur? Svara sama spurningi fyri kvinnur (tip: ger ein pipe-setning av `hgt_sim` bólkað uppá `sex` har tú roknar bæði simuleraðu sannlíkindini).
 
 ```{r}
+
 
 ```
 
