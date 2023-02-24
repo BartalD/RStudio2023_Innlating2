@@ -448,29 +448,22 @@ data_bino <- rbind(tibble(
 )
 ,
 tibble(
-    x = 0:50,
-    y = c(dbinom(0:50, 50, 0.04)),
-    label = rep("2. dbinom(x, 50, 0.04)", 51)
+    x = 0:10,
+    y = c(dbinom(0:10, 50, 0.04)),
+    label = rep("2. dbinom(x, 50, 0.04)", 11)
     )
 ,
 tibble(
-    x = 0:100,
-    y = c(dbinom(0:100, 100, 0.02)),
-    label = rep("3. dbinom(x, 100, 0.02)", 101)
+    x = 0:10,
+    y = c(dbinom(0:10, 100, 0.02)),
+    label = rep("3. dbinom(x, 100, 0.02)", 11)
   ))
 
-data_pois
-tibble(
+data_pois <-tibble(
   x = 0:10,
   y = dpois(0:10, 2),
   label = rep("4. dpois(x, 2)", 11)
 )
-tibble(
-  x = 0:10,
-  y = dpois(0:10, 2),
-  label = rep("4. dpois(x, 2)", 11)
-)
-
 
 
 data_bp <- bind_rows(data_bino, data_pois)
@@ -485,35 +478,69 @@ library(ggplot2)
 
 ggplot(data_bp, aes(x = x, y = y, fill = label)) +
   geom_bar(stat = "identity") +
-  facet_wrap(~label, nrow = 2) +
+  facet_wrap(~label, nrow = 4,scales="fixed") +
   labs(x = "x", y = "Probability", fill = NULL)
 ```
 
 > 5d)  um tú omanfyri hevur brúkt virðini `0, 1, 2, ..., 10` fyri `x`, so hevur `data_bp` tilsamans `4*11 = 44` observatiónir og 3 variablar `x, y, label`. Hesi data eru vælegnaði til plotting, men verri at samanbera, um tey vera lisin út sum ein long talva. Ger tí eina nýggja tibble `distributions` fyri at fáa eitt styttri talvu-yvirlit at samanbera sannlíkindini fyri tær fýra fordeilingarnar. Ger `distributions` í einum pipe-setningi útfrá `data_bp`, sum tú pipar inn í eitt `pivot_wider()` og tekur nøvnini frá `label` og virðini frá `y`. Útles síðani talvuna (tip: brúka 5 decimalar.")`). Talvan skal hava eina rekkju fyri hvørt virði av bitfeilum í kolonnu `x` og  fýra kolonnur av sannlíkindum (eina kolonnu fyri hvørja av teimum fýra fordeilingunum).
 
 ```{r}
+distributions <- data_bp %>% pivot_wider(names_from=label,values_from=y) %>% round(5)
 
+head(distributions,n=10)
 ```
 
 > hvussu væl samsvara binomialfordeilingarnar við poissonfordeilingina?
 
+Ógvuliga væl
+
+
 > 5e) endurtak 5b og 5c har tú nú brúkar `n = 10, 1000, 10000` og `p = 2/n`, so tú hesuferð fær 4 deilmyndir (`1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 1000, 0.002)`, `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`).
 
 ```{r}
+data_bino <- rbind(tibble(
+  x = 0:10,
+  y = c(dbinom(0:10, 10, 0.2)),
+  label = rep("1. dbinom(x, 10, 0.2)", 11)
+)
+,
+tibble(
+    x = 0:10,
+    y = c(dbinom(0:10, 1000, 0.002)),
+    label = rep("2. dbinom(x, 1000, 0.002)", 11)
+    )
+,
+tibble(
+    x = 0:10,
+    y = c(dbinom(0:10, 10000, 2e-04)),
+    label = rep("3. dbinom(x, 10000, 2e-04)", 11)
+  ))
 
-```
+data_pois <-tibble(
+  x = 0:10,
+  y = dpois(0:10, 2),
+  label = rep("4. dpois(x, 2)", 11)
+)
 
 
-```{r}
+data_bp <- bind_rows(data_bino, data_pois)
 
+data_bp
+ggplot(data_bp, aes(x = x, y = y, fill = label)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~label, nrow = 4,scales="fixed") +
+  labs(x = "x", y = "Probability", fill = NULL)
 ```
 
 > sært tú nakran mun á deilmyndum: `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`?
 
+Nei binomial sær út til at fara ímóti Poisson
+
 > 5f) endurtak talvuna svarandi til 5d, so tú her útlesur tær fýra fordeilingarnar: `1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 1000, 0.002)`, `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`
 
 ```{r}
-
+distributions <- data_bp %>% pivot_wider(names_from=label,values_from=y) %>% round(5)
+head(distributions,n=10)
 ```
 
 > hvussu væl samsvara binomialfordeilingarnar nú við poissonfordeilingina?
@@ -521,12 +548,12 @@ ggplot(data_bp, aes(x = x, y = y, fill = label)) +
 > finn við brúk av poissonfordeilingini `dpois(x, 2)` sannlíkindini `P(x <= 3)` fyri at tú í mesta lagi fært 3 bitfeilir.
 
 ```{r}
-
+sum(dpois(0:3,lambda=2))
 ```
 
 > svara sama spurningi `P(x <= 3)` við brúk av `ppois(x, 2)`
 
 ```{r}
-
+ppois(3,lambda=2)
 ```
 
