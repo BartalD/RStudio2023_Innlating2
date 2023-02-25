@@ -181,7 +181,7 @@ ggplot(hgt_sim, aes(x = hgt)) +
 ```{r}
 ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
   geom_histogram(binwidth = 1, fill = "blue") +
-  geom_density(colour = "red", aes(y = ..density..)) +
+  geom_density(colour = "red", aes(y = after_stat(density))) +
   facet_wrap(~ sex, ncol = 1) +
   xlab("Height (cm)") +
   ylab("Count") +
@@ -218,13 +218,18 @@ ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
 > hvørji eru teoretisku normalfordeilings-sannlíkindini fyri at ein maður í `hgt_sim` er `170-180 cm` høgur? Svara sama spurningi fyri kvinnur (tip: brúka `pnorm()` í báðum førum).
 
 ```{r}
-
+pnorm(180, male$hgt_mean, male$hgt_sd) - pnorm(170, male$hgt_mean, male$hgt_sd)
+pnorm(180, female$hgt_mean, female$hgt_sd) - pnorm(170, female$hgt_mean, female$hgt_sd)
 ```
 
 >  hvørji eru simuleraðu normalfordeilings-sannlíkindini fyri at ein maður í `hgt_sim` er `170-180 cm` høgur? Svara sama spurningi fyri kvinnur (tip: ger ein pipe-setning av `hgt_sim` bólkað uppá `sex` har tú roknar bæði simuleraðu sannlíkindini).
 
 ```{r}
-
+hgt_sim %>%
+  group_by(sex) %>%
+  summarise(
+    pnorm = pnorm(180, mean(hgt), sd(hgt)) - pnorm(170, mean(hgt), sd(hgt))
+  )
 ```
 
 > 3b) tekna teoretisku normalfordeilingarnar av `hgt` fyri kvinnur og menn og lita arealini undir kurvunum hoyrandi til fyrra spurningin í 3a) (tip: brúka `geom_area()`).
@@ -268,7 +273,7 @@ ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
 > 4a) ger eitt barplot av binomial-fordeilingini `dbinom(x, size, prob)` sum facet-plot fyri fast `prob = 0.61` og varierandi `size = 1, 2, 3, 10`, so tú fært fýra deilmyndir. Greið frá hvat plottið vísir.
 
 ```{r}
-x_values <- -2:10
+x_values <- 0:10
 prob <- 0.61
 size <- c(1,2,3,10)
 
@@ -286,14 +291,15 @@ for (i in size) {
 ggplot() +
   geom_bar(data=ndata, aes(x, prob), stat = "identity") +
   ylab("prob") +
-  facet_wrap(~ size, labeller = label_both)
+  facet_wrap(~ size, labeller = label_both) +
+  scale_x_continuous(breaks=seq(min(x_values), max(x_values), 1))
 ```
     
 
 > 4b) ger eitt barplot av binomial-fordeilingini sum facet-plot fyri varierandi `size = 1, 2, 3, 10, 100, 200` og varierandi `prob = 0.61/size`, so tú fært 6 deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `size` og fallandi virði av `prob = 0.61/size`, tá vit soleiðis halda `size*prob = 0.61` konstant (í teori: `n*p` konstant).
 
 ```{r}
-x_values <- -2:5
+x_values <- 0:5
 prob_value <- 0.61
 size <- c(1,2,3,10,100,200)
 
@@ -312,7 +318,8 @@ for (i in size) {
 ggplot() +
   geom_bar(data=ndata, aes(x, y), stat = "identity") +
   ylab("prob") +
-  facet_wrap(~ size, labeller = label_both)
+  facet_wrap(~ size, labeller = label_both) +
+  scale_x_continuous(breaks=seq(min(x_values), max(x_values), 1))
 ```
 
 > 4c) ger eitt barplot av poisson-fordeilingini sum facet-plot fyri varierandi `lambda = 0.0061, 0.061, 0.61, 6.1`, so tú fært fýra deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `rate`.
