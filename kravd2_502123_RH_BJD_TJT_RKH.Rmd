@@ -191,7 +191,38 @@ ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
 > 2e) endurtak plottið frá 2d) við data `hgt_sim`, har tú ger histogrammið við density, men hesuferð leggur density-kurvar útyvir bæði histogrammini í tínum facet-plotti við brúk av normalfordeilingini `dnorm()` (tip: ger eyka tibbles `ndata_m` og `ndata_f` við teoretiskum normalfordeilingsdata fyri kynini, har tú ger hóskandi variablar: `x = x_values, y = dnorm(x_values, mean, sd), sex`, sum tú síðani rekkjubindur til `ndata` og brúkar til at plotta kurvarnar). 
 
 ```{r}
+#hgt_sim
+#hgt_sim <- mutate(
+#  hgt_sim,
+#  #tibble(ndata_m = dnorm(3604, 0, 1))
+#)
 
+mean_hgt_males <- mean(hgt_males$hgt, na.rm = TRUE)
+mean_hgt_females <- mean(hgt_females$hgt, na.rm = TRUE)
+
+ndata <- NULL
+
+
+hgt_sim <- hgt_sim %>%
+  mutate(hgt = hgt, sex = sex, dn = hgt / 173)#if (sex == "male") { hgt / mean_hgt_makes } else { hgt / mean_hgt_females })
+
+#ndata_m <- tibble(hgt = dnorm(hgt_males$hgt, mean_hgt_males, 1), sex = "male")
+#ndata_f <- tibble(hgt = dnorm(hgt_females$hgt, mean_hgt_females, 1), sex = "female")
+#ndata <- NULL
+#ndata <- rbind(ndata_m, ndata_f)
+#testdata <- tibble(for (i in hgt_sim) {
+#  i$hgt
+#})
+
+ggplot(hgt_sim) +
+  geom_histogram(aes(x = hgt, after_stat(density)), binwidth = 2, colour = "green", fill = "black") +
+  geom_density(data = ndata, aes(y = hgt)) +
+  facet_wrap(~ sex)# +
+  #theme(
+  #  panel.background = element_rect(fill = "black"),
+  #  plot.background = element_rect(fill = "darkgray")
+  #)
+  
 ```
 
 > 2f) í hesum spurningi skalt tú gera tvær `geom_qq()` myndir í hvør sínum kodublokki (QQ plot eru lýst í bókini: Probability, Statistics and Data 7.2.5 QQ plots).
