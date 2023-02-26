@@ -162,7 +162,11 @@ arrange(hgt_sim, desc(hgt_sim$hgt))
 > 2b) endurtak plottið frá 1c) nú við data `hgt_sim`.
 
 ```{r}
-
+ggplot(hgt_sim, aes(x = sex, y = hgt)) + 
+  geom_boxplot() +
+  xlab("Sex") +
+  ylab("Height (cm)") +
+  ggtitle("Distribution of heights by sex")
 ```
 
 > 2c) endurtak plottið frá 1d) nú við data `hgt_sim`.
