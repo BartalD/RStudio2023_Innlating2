@@ -209,12 +209,18 @@ ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
 > ger í fyrsta kodublokki eitt `geom_qq()` punkt-plot av `hgt` í talvu `hgt_sim` og samanber við beinu linjuna `geom_qq_line()`. Liggja punktini sum heild á beinu linjuni? 
 
 ```{r}
-
+ggplot(hgt_sim, aes(sample = hgt)) +
+  geom_qq() +
+  geom_qq_line()
 ```
+    Nei, punktini liggja ikki á linjuni, tað byrjar uppi yvir linjuni og endar undir linjuni
+
 > ger í næsta kodublokki sama slag `geom_qq()` plot, men har tú nú mappar lit av punktum og linjum til variabul `sex`. Liggja punktini fyri hvørt kynið sum heild á tilhoyrandi linjunum? 
 
 ```{r}
-
+ggplot(hgt_sim, aes(sample = hgt, color = sex)) +
+  geom_qq() +
+  geom_qq_line()
 ```
 
 > hvørja niðurstøðu kanst tú gera tær um fordeilingarnar av hæddum av fólki ikki deilt á kyn í `hgt_sim`, samanborið við fordeilingarnar av hæddum av fólki í `hgt_sim`, tá hesar eru deildar á kyn?
