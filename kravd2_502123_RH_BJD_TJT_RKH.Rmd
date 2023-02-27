@@ -75,6 +75,8 @@ heights
 
 > 1c)  plotta eitt box-plot av `heights` við `sex` sum x-aksa og `hgt` sum y-aksa. Hvørjar ábendingar geva hesi plot um hæddirnar hjá kvinnum og monnum í hesum datasetti?
 
+    Hettar vísir at varisansan hjá kvinnum og monnum er tann sama, tvs. fyri baði kvinnur og menn eru tað líka nógv stór sum smá, medianin er tann sama, men har er munur á saman borði við hvørt annað í gjøgnumsnit eru menn størri.
+
 ```{r}
 ggplot(heights, aes(x = sex, y = hgt)) + 
   geom_boxplot() +
@@ -82,8 +84,6 @@ ggplot(heights, aes(x = sex, y = hgt)) +
   ylab("Height (cm)") +
   ggtitle("Distribution of heights by sex")
 ```
-    Hettar vísir at varisansan hjá kvinnum og monnum er tann sama, tvs. fyri baði kvinnur og menn eru tað líka nógv stór sum smá, medianin er tann sama, men har er munur á saman borði við hvørt annað í gjøgnumsnit eru menn størri.
-
 > 1d) ger eitt histogram av variabul `hgt` í `heights` sum facet-plot í einari kolonnu eftir variabul `sex` har tú til dømis brúkar `binwidth = 1`.
 
 ```{r}
@@ -310,6 +310,8 @@ ggplot(heights, aes(sample = wgt, colour = sex, shape = sex)) +
 
 > 4a) ger eitt barplot av binomial-fordeilingini `dbinom(x, size, prob)` sum facet-plot fyri fast `prob = 0.61` og varierandi `size = 1, 2, 3, 10`, so tú fært fýra deilmyndir. Greið frá hvat plottið vísir.
 
+    Svara
+
 ```{r}
 x_values <- 0:10
 prob <- 0.61
@@ -332,9 +334,9 @@ ggplot() +
   facet_wrap(~ size, labeller = label_both) +
   scale_x_continuous(breaks=seq(min(x_values), max(x_values), 1))
 ```
-    
-
 > 4b) ger eitt barplot av binomial-fordeilingini sum facet-plot fyri varierandi `size = 1, 2, 3, 10, 100, 200` og varierandi `prob = 0.61/size`, so tú fært 6 deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `size` og fallandi virði av `prob = 0.61/size`, tá vit soleiðis halda `size*prob = 0.61` konstant (í teori: `n*p` konstant).
+
+    Svara
 
 ```{r}
 x_values <- 0:5
@@ -361,6 +363,8 @@ ggplot() +
 ```
 
 > 4c) ger eitt barplot av poisson-fordeilingini sum facet-plot fyri varierandi `lambda = 0.0061, 0.061, 0.61, 6.1`, so tú fært fýra deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `rate`.
+
+    Svara
 
 ```{r}
 x_values <- 0:15
@@ -425,6 +429,8 @@ data_bp
 
 > 4e) ger eitt barplot av `data_bp` sum facet-plot, so tú fært tvær deilmyndir. Brúka `geom_text(aes(x, y, label = round(y, 4)), vjust=-0.5, size = 3.25)` fyri neyvari at vísa sannlíkindini í tølum yvir stabbunum. Finnur tú stórar ella smáar munir á sannlíkindunum fyri ávikavist binomial- og poisson-fordeilingina?
 
+    Svara
+
 ```{r}
 ggplot(data = data_bp) +
   geom_bar(aes(x,y), stat = "identity") +
@@ -445,6 +451,8 @@ ggplot(data = data_bp) +
 > greið frá hvat plottið vísir (Tip: hetta er eitt søguligt dømi um modellering av deyða av hestasparki í prøjsiska herinum 1875-1894, har deyði av hestasparki vóru skrásettir í 10 regimentum yvir 20 ár svarandi til `size = 10*20 = 200` skrásetingar við fylgjandi observatiónum: 0 deyðir í 109 skrásetingum, 1 í 65, 2 í 22, 3 í trimum, 4 í einari, og eingin skráseting hevði meira enn 4 deyðar hermenn. Í miðal: `((0*109) + (1*65) + (2*22) + (3*3) + (4*1))/200 = 122/200 = 0.61`, sum vit hava brúkt sum `lambda` í poisson-fordeilingini). 
 
 > kann deyði av hestasparki í prøjsiska herinum 1875-1894 metast at henda tilvildarliga, og hví?
+
+    Svara
 
 
 ### Uppg. 5
@@ -518,6 +526,8 @@ data_bp
 
 > 5c) ger eitt barplot av `data_bp` sum facet-plot, so tú fært fýra deilmyndir (`1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 50, 0.04)`, `3. dbinom(x, 100, 0.02)` og `4. dpois(x, 2)`). Hvørjir munir eru á sannlíkindunum fyri tær trýggjar binomialfordeilingarnar samanborið við tí einu poisson-fordeilingina?
 
+    Svara
+
 ```{r}
 library(ggplot2)
 
@@ -537,8 +547,7 @@ head(distributions,n=10)
 
 > hvussu væl samsvara binomialfordeilingarnar við poissonfordeilingina?
 
-Ógvuliga væl
-
+    Ógvuliga væl
 
 > 5e) endurtak 5b og 5c har tú nú brúkar `n = 10, 1000, 10000` og `p = 2/n`, so tú hesuferð fær 4 deilmyndir (`1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 1000, 0.002)`, `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`).
 
@@ -579,7 +588,7 @@ ggplot(data_bp, aes(x = x, y = y, fill = label)) +
 
 > sært tú nakran mun á deilmyndum: `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`?
 
-Nei binomial sær út til at fara ímóti Poisson
+    Nei binomial sær út til at fara ímóti Poisson
 
 > 5f) endurtak talvuna svarandi til 5d, so tú her útlesur tær fýra fordeilingarnar: `1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 1000, 0.002)`, `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`
 
@@ -589,6 +598,8 @@ head(distributions,n=10)
 ```
 
 > hvussu væl samsvara binomialfordeilingarnar nú við poissonfordeilingina?
+
+    Svara
 
 > finn við brúk av poissonfordeilingini `dpois(x, 2)` sannlíkindini `P(x <= 3)` fyri at tú í mesta lagi fært 3 bitfeilir.
 
