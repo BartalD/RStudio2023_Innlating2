@@ -228,7 +228,8 @@ ggplot(hgt_sim, aes(sample = hgt, color = sex)) +
 
 > hvørja niðurstøðu kanst tú gera tær um fordeilingarnar av hæddum av fólki ikki deilt á kyn í `hgt_sim`, samanborið við fordeilingarnar av hæddum av fólki í `hgt_sim`, tá hesar eru deildar á kyn?
 
-    
+    Kvinnurinar skeikla data niðureftir og menn skeilka data upp eftir, í tí fyrra grafinum. Ì tí seinna grafinum fylgja plottini linju so gott sum allan vegin.
+    Linjan er normalfordeilingin. 
 
 
 ### Uppg. 3
