@@ -58,9 +58,7 @@ library(ggplot2)
 > 1a) Goym (assign) `heights` frá pakka `modelr` í objektið `heights`. Útskriva síðani `heights` á einfaldasta hátt, sum tú kanst gera. Hvørjar eindir er hæddin og vektin uppgivin í (tip: brúka hjálpina).
 
 ```{r }
-# test
-heights <- heights
-
+# heights kemur frá modelr pakkanum
 heights
 ```
     According to help(heights), the weight is in pounds and the height is in inches.
@@ -126,11 +124,7 @@ hgt_summary
 > 2a) simulera eina talvu `hgt_sim` við normalfordeildum hæddum fyri 3402 kvinnur og 3604 menn við brúk av upplýsingum úr talvu `hgt_summary`. Ger fyrst eina tibble `hgt_males` og eina tibble `hgt_females` grundað á simuleraði data frá hvør sína normalfordeiling, sum tit síðani rekkjubinda í tibble `hgt_sim`.  Talvan `hgt_sim` skal innihalda variablarnar: `hgt`, sum skal vera numerisk og `sex`, sum skal vera ein faktor. Les lidnu talvuna út.
 
 ```{r}
-# Tøl frá https://en.wikipedia.org/wiki/Average_human_height_by_country
-# Land brúk: Bretland
 hgt_summary
-
-#df['r3',]
 
 male <- hgt_summary[hgt_summary$sex == 'male',] 
 female <- hgt_summary[hgt_summary$sex == 'female',] 
@@ -173,7 +167,7 @@ ggplot(hgt_sim, aes(x = sex, y = hgt)) +
 
 ```{r}
 ggplot(hgt_sim, aes(x = hgt)) +
-  geom_histogram(binwidth = 1, fill = "blue") +
+  geom_histogram(binwidth = 1, fill = "blue", colour = "black") +
   facet_wrap(~ sex, ncol = 1) +
   xlab("Height (cm)") +
   ylab("Count") +
@@ -184,7 +178,7 @@ ggplot(hgt_sim, aes(x = hgt)) +
 
 ```{r}
 ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
-  geom_histogram(binwidth = 1, fill = "blue") +
+  geom_histogram(binwidth = 1, fill = "blue", colour = "black") +
   geom_density(colour = "red", aes(y = after_stat(density))) +
   facet_wrap(~ sex, ncol = 1) +
   xlab("Height (cm)") +
@@ -219,13 +213,9 @@ hgt_sim <- hgt_sim %>%
 #})
 
 ggplot(hgt_sim) +
-  geom_histogram(aes(x = hgt, after_stat(density)), binwidth = 2, colour = "green", fill = "black") +
-  geom_density(data = ndata, aes(y = hgt)) +
-  facet_wrap(~ sex)# +
-  #theme(
-  #  panel.background = element_rect(fill = "black"),
-  #  plot.background = element_rect(fill = "darkgray")
-  #)
+  geom_histogram(aes(x = hgt, after_stat(density)), binwidth = 1, colour = "black", fill = "blue") +
+  #geom_density(data = ndata, aes(y = hgt)) +
+  facet_wrap(~ sex, ncol = 1)# +
   
 ```
 
@@ -270,37 +260,48 @@ hgt_sim %>%
 > 3b) tekna teoretisku normalfordeilingarnar av `hgt` fyri kvinnur og menn og lita arealini undir kurvunum hoyrandi til fyrra spurningin í 3a) (tip: brúka `geom_area()`).
 
 ```{r}
-
+ggplot(hgt_sim, aes(x = hgt, y = dn, colour = sex, fill = sex)) +
+  geom_area(alpha = 0.6)# +
+  #facet_wrap(~sex, ncol = 1)
 ```
 
 > 3c) plotta eitt box-plot av data `heights` við `wgt` sum x-aksa og `sex` sum y-aksa. 
 
 ```{r}
-
+ggplot(heights, aes(x = wgt, y = sex, colour = sex, fill = sex, shape = sex)) +
+  geom_boxplot(alpha = 0.6) +
+  xlab("Weight (kg)")
 ```
 
 > 3d) plotta eitt violin-plot av data `heights` við `wgt` sum x-aksa og `sex` sum y-aksa, og plotta eisini quantilar við `draw_quantiles = c(0.25, 0.5, 0.75)`.
 
 ```{r}
-
+ggplot(heights, aes(x = wgt, y = sex, color = sex)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75), fill = "transparent")
 ```
 
 > 3e) ger eitt histogram av variabul `wgt` í `heights` sum facet-plot í einari kolonnu eftir variabul `sex` har tú til dømis brúkar `binwidth = 5`.
 
 ```{r}
-
+ggplot(heights, aes(x = wgt, fill = sex)) +
+  geom_histogram(binwidth = 5, colour = "black") +
+  facet_wrap(~sex)
 ```
 
 > hvørjar ábendingar geva plottini 3c), 3d) og 3e) um vektirnar hjá kvinnum og monnum í data `heights`?
+    Mennirnir viga meiri enn kvinnurnar. Mennirnir hava fleiri ekstremar outliers.
 
 > 3f) ger eitt `geom_qq()` punkt-plot av `wgt` í talvu `heights` og samanber við beinu linjuna `geom_qq_line()`, tá tú mappar lit av punktum og linjum til variabul `sex`. Liggja punktini fyri hvørt kynið sum heild á tilhoyrandi linjunum? 
 
 ```{r}
-
+ggplot(heights, aes(sample = wgt, colour = sex, shape = sex)) +
+  geom_qq(alpha = 0.25) +
+  geom_qq_line() +
+  ylab("Weight (kg)")
 ```
 
 > hvørja niðurstøðu kanst tú gera tær um fordeilingarnar av vektum av fólki deilt á kyn í data `heights`?
-
+Kvinnur fylgja sum heild minni eftir normalfordeilingini enn menn, men fleiri ekstrem dømir hjá monnunum.
 
 
 ### Uppg. 4
