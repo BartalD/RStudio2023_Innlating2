@@ -287,9 +287,12 @@ ggplot(heights, aes(x = wgt, fill = sex)) +
 ```
 
 > hvørjar ábendingar geva plottini 3c), 3d) og 3e) um vektirnar hjá kvinnum og monnum í data `heights`?
+
     Mennirnir viga meiri enn kvinnurnar. Mennirnir hava fleiri ekstremar outliers.
 
-> 3f) ger eitt `geom_qq()` punkt-plot av `wgt` í talvu `heights` og samanber við beinu linjuna `geom_qq_line()`, tá tú mappar lit av punktum og linjum til variabul `sex`. Liggja punktini fyri hvørt kynið sum heild á tilhoyrandi linjunum? 
+> 3f) ger eitt `geom_qq()` punkt-plot av `wgt` í talvu `heights` og samanber við beinu linjuna `geom_qq_line()`, tá tú mappar lit av punktum og linjum til variabul `sex`. Liggja punktini fyri hvørt kynið sum heild á tilhoyrandi linjunum?
+
+    Nei, men miðan fylgir linjuni eitt sindur. 
 
 ```{r}
 ggplot(heights, aes(sample = wgt, colour = sex, shape = sex)) +
@@ -299,7 +302,8 @@ ggplot(heights, aes(sample = wgt, colour = sex, shape = sex)) +
 ```
 
 > hvørja niðurstøðu kanst tú gera tær um fordeilingarnar av vektum av fólki deilt á kyn í data `heights`?
-Kvinnur fylgja sum heild minni eftir normalfordeilingini enn menn, men fleiri ekstrem dømir hjá monnunum.
+    
+    Kvinnur fylgja sum heild minni eftir normalfordeilingini enn menn, men fleiri ekstrem dømir hjá monnunum.
 
 
 ### Uppg. 4
