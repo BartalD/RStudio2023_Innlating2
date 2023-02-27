@@ -452,7 +452,7 @@ ggplot(data = data_bp) +
 
 > kann deyði av hestasparki í prøjsiska herinum 1875-1894 metast at henda tilvildarliga, og hví?
 
-    Svara
+    poisson-fordeilingini er forsøgin (forudsigilig) og binomial fylgir í hesum døminum poisson, tí halda vit at tað er tilvildarligt.
 
 
 ### Uppg. 5
