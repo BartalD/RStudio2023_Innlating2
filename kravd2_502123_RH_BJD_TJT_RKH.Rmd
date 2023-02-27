@@ -201,14 +201,14 @@ ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
   geom_histogram(aes(x = hgt, after_stat(density)), binwidth = 1, colour = "black", fill = "blue") +
   geom_density(colour = "red", aes(y = after_stat(density))) +
   geom_line(data = ndata, mapping = aes(x = x, y = y), colour = "green") +
-  facet_wrap(~ sex, ncol = 1)# +
+  facet_wrap(~ sex, ncol = 1)
 ```
 
 > 2f) í hesum spurningi skalt tú gera tvær `geom_qq()` myndir í hvør sínum kodublokki (QQ plot eru lýst í bókini: Probability, Statistics and Data 7.2.5 QQ plots).
 
 > ger í fyrsta kodublokki eitt `geom_qq()` punkt-plot av `hgt` í talvu `hgt_sim` og samanber við beinu linjuna `geom_qq_line()`. Liggja punktini sum heild á beinu linjuni?
 
-    Nei, punktini liggja ikki á linjuni, tað byrjar uppi yvir linjuni og endar undir linjuni
+    Nei, punktini liggja ikki á linjuni, tað byrjar uppi yvir linjuni og endar undir linjuni.
 
 ```{r}
 ggplot(hgt_sim, aes(sample = hgt)) +
@@ -218,7 +218,7 @@ ggplot(hgt_sim, aes(sample = hgt)) +
 
 > ger í næsta kodublokki sama slag `geom_qq()` plot, men har tú nú mappar lit av punktum og linjum til variabul `sex`. Liggja punktini fyri hvørt kynið sum heild á tilhoyrandi linjunum?
 
-    Ja tað ger tær
+    Ja tað ger tær.
 
 ```{r}
 ggplot(hgt_sim, aes(sample = hgt, color = sex)) +
@@ -255,8 +255,10 @@ hgt_sim %>%
 > 3b) tekna teoretisku normalfordeilingarnar av `hgt` fyri kvinnur og menn og lita arealini undir kurvunum hoyrandi til fyrra spurningin í 3a) (tip: brúka `geom_area()`).
 
 ```{r}
-ggplot(hgt_sim, aes(x = hgt, y = dn, colour = sex, fill = sex)) +
-  geom_area(alpha = 0.6)# +
+ggplot(ndata, aes(x = x, y = y, colour = sex, fill = sex)) +
+  geom_area(alpha = 0.6) +
+  xlab("Weight (kg)") +
+  ylab("dnorm")
   #facet_wrap(~sex, ncol = 1)
 ```
 
