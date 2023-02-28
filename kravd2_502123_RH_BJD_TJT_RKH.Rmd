@@ -256,11 +256,21 @@ hgt_sim %>%
 > 3b) tekna teoretisku normalfordeilingarnar av `hgt` fyri kvinnur og menn og lita arealini undir kurvunum hoyrandi til fyrra spurningin í 3a) (tip: brúka `geom_area()`).
 
 ```{r}
-ggplot(ndata, aes(x = x, y = y, colour = sex, fill = sex)) +
-  geom_area(alpha = 0.6) +
-  xlab("Weight (kg)") +
-  ylab("dnorm")
-  #facet_wrap(~sex, ncol = 1)
+
+# ndata variabul navn verður nýtt seinni, men við øðrum data, broyti navn her og 
+# kolonnu nøvn, so tað er lættari at arbeiða við.
+ndata2 <- select(ndata, hgt = x, dn = y, sex = sex)
+
+ggplot(ndata2) +
+  geom_area(data=filter(ndata2,
+                        hgt >= qnorm(0.05, mean(hgt), 2),
+                        hgt <= qnorm(0.95, mean(hgt), 2)),
+            aes(x = hgt, y = dn),
+            fill = "lightblue") +
+  geom_line(aes(hgt, dn)) +
+  xlab("Height (cm)") +
+  ylab("dnorm") +
+  facet_wrap(~sex, ncol = 1)
 ```
 
 > 3c) plotta eitt box-plot av data `heights` við `wgt` sum x-aksa og `sex` sum y-aksa. 
