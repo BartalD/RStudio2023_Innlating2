@@ -621,7 +621,7 @@ head(distributions,n=10)
 
 > hvussu væl samsvara binomialfordeilingarnar nú við poissonfordeilingina?
 
-    '1.dbinom()' samvara ikki, men størri eindir dbinom(), hevur betri samsvara tær við '4.dpois'.
+    '1.dbinom()' samvara ikki, men við størri eindir dbinom(), samsvara tær betri við '4.dpois'.
     Tvs 2 og 3 av 'dbinom()' liggja øðiliga tætt við.
 
 > finn við brúk av poissonfordeilingini `dpois(x, 2)` sannlíkindini `P(x <= 3)` fyri at tú í mesta lagi fært 3 bitfeilir.
