@@ -267,7 +267,7 @@ ggplot(ndata, aes(x = x, y = y, colour = sex, fill = sex)) +
 
 ```{r}
 ggplot(heights, aes(x = wgt, y = sex, colour = sex, fill = sex, shape = sex)) +
-  geom_boxplot(alpha = 0.6) +
+  geom_boxplot(alpha = 0.6, na.rm = TRUE) +
   xlab("Weight (kg)")
 ```
 
@@ -275,14 +275,14 @@ ggplot(heights, aes(x = wgt, y = sex, colour = sex, fill = sex, shape = sex)) +
 
 ```{r}
 ggplot(heights, aes(x = wgt, y = sex, color = sex)) +
-  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75), fill = "transparent")
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75), fill = "transparent", na.rm = TRUE)
 ```
 
 > 3e) ger eitt histogram av variabul `wgt` í `heights` sum facet-plot í einari kolonnu eftir variabul `sex` har tú til dømis brúkar `binwidth = 5`.
 
 ```{r}
 ggplot(heights, aes(x = wgt, fill = sex)) +
-  geom_histogram(binwidth = 5, colour = "black") +
+  geom_histogram(binwidth = 5, colour = "black", na.rm = TRUE) +
   facet_wrap(~sex)
 ```
 
@@ -296,8 +296,8 @@ ggplot(heights, aes(x = wgt, fill = sex)) +
 
 ```{r}
 ggplot(heights, aes(sample = wgt, colour = sex, shape = sex)) +
-  geom_qq(alpha = 0.25) +
-  geom_qq_line() +
+  geom_qq(alpha = 0.25, na.rm = TRUE) +
+  geom_qq_line(na.rm = TRUE) +
   ylab("Weight (kg)")
 ```
 
