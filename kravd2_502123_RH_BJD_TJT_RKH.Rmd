@@ -195,8 +195,6 @@ ndata_f <- tibble(x = hgt_females$hgt, y = dnorm(x, mean(x), sd(x)), sex = "fema
 ndata <- NULL
 ndata <- rbind(ndata_m, ndata_f)
 
-ggplot(ndata)
-
 ggplot(hgt_sim, aes(x = hgt, after_stat(density))) +
   geom_histogram(aes(x = hgt, after_stat(density)), binwidth = 1, colour = "black", fill = "blue") +
   geom_density(colour = "red", aes(y = after_stat(density))) +
