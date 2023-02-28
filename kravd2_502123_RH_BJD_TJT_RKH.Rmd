@@ -323,7 +323,7 @@ ggplot(heights, aes(sample = wgt, colour = sex, shape = sex)) +
 
     Plottið vísur okkum, hvussu binomial-fordeilingin broytist, tá ið "size" virði broytist.
     Sum sæst fyri size: 1, er bert møguleiki fyri at fáa 0 ella 1 og sannlíkindi er 0.39% ella 0.61%.
-    Men tá ið size er 10, síggja vit eina meira "normal fordeilt" plot við binomial-fordeilingina og sannlíkindi broytist eftirfarandi.
+    Tá ið size er 10, síggja vit eina meira "normal fordeilt" plot við binomial-fordeilingina og sannlíkindi broytist eftirfarandi.
     
     
 
@@ -351,9 +351,8 @@ ggplot() +
 ```
 > 4b) ger eitt barplot av binomial-fordeilingini sum facet-plot fyri varierandi `size = 1, 2, 3, 10, 100, 200` og varierandi `prob = 0.61/size`, so tú fært 6 deilmyndir. Greið frá hvat hendur fyri vaksandi virði av `size` og fallandi virði av `prob = 0.61/size`, tá vit soleiðis halda `size*prob = 0.61` konstant (í teori: `n*p` konstant).
 
-    "Manglar at Svara"
     Plottið vísur okkum, hvussu binomial-fordeilingin broytist, tá ið vit broyta 'size' og vit ávirka sannlíkindi við 'size'.
-    Sannlíkindi at fáa fáa '0' er vaksandi, tað vil siga at eydnan, at fáa gott úrslit versnar í deildmongd við støddina. 
+    Sannlíkindi at fáa '0' er vaksandi, tað vil siga at eydnan, at fáa gott úrslit versnar í deildmongd við støddina. 
     
 ```{r}
 x_values <- 0:5
@@ -383,7 +382,7 @@ ggplot() +
 
     Plottið vísur okkum, at hægri lambda virði vit hava, fáa vit eina betri mynd av einari fordeiling,
     sum gongur móti at vera normalt fordeilt.
-    Tað sæst væl tá ið lambda virði er '6.1', har sannlíkindini á poisson er 50%.
+    Tað sæst væl, tá ið lambda virði er '6.1', har sannlíkindini á poisson er 50%.
 
 ```{r}
 x_values <- 0:15
@@ -546,7 +545,7 @@ data_bp
 
 > 5c) ger eitt barplot av `data_bp` sum facet-plot, so tú fært fýra deilmyndir (`1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 50, 0.04)`, `3. dbinom(x, 100, 0.02)` og `4. dpois(x, 2)`). Hvørjir munir eru á sannlíkindunum fyri tær trýggjar binomialfordeilingarnar samanborið við tí einu poisson-fordeilingina?
 
-    Í plottinum sæst at hægri virðini er í binomialfordeilingin, meira líkjast tær poisson fordeilingina.
+    Í plottinum sæst at hægri virðini er í binomialfordeilingin, meira líkjast tær poisson fordeilingina, tá ið virðini er hægri.
     Hettar sóu vit eisini í 4.a og 4.e, har meira virðir tilstaðar, fáa vit eina betri mynd av binomialfordeilingini.
 
 ```{r}
@@ -568,7 +567,7 @@ head(distributions,n=10)
 
 > hvussu væl samsvara binomialfordeilingarnar við poissonfordeilingina?
 
-    Vit hava funni stuðlandi tilfarð í teimun fyrru uppgávunum, og vit síggja aftur í hesum tibblinum, at tær samvara ógvuliga væl.
+    Vit hava funni stuðlandi tilfarð í teimun fyrru uppgávunum, og vit síggja aftur í hesum tibblinum, at tær binomialfordeilingin nærkast samvara ógvuliga væl.
 
 > 5e) endurtak 5b og 5c har tú nú brúkar `n = 10, 1000, 10000` og `p = 2/n`, so tú hesuferð fær 4 deilmyndir (`1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 1000, 0.002)`, `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`).
 
@@ -609,8 +608,8 @@ ggplot(data_bp, aes(x = x, y = y, fill = label)) +
 
 > sært tú nakran mun á deilmyndum: `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`?
 
-    Um vit hyggja í Rstudio sæst eingin munur og at binomialfordeilingin sær út til at fara ímóti Poisson.
-    Hyggja vit eftir html'inum gjørt frá knit, síggja vit at '3. dbinom()' endar í x virði ~9, meðan Poisson gongur móti ~8 
+    Vit síggja at '3. dbinom()' endar í x virði ~9, meðan Poisson gongur móti ~8.
+    Men tær eru næstan tað sama.
 
 > 5f) endurtak talvuna svarandi til 5d, so tú her útlesur tær fýra fordeilingarnar: `1. dbinom(x, 10, 0.2)`, `2. dbinom(x, 1000, 0.002)`, `3. dbinom(x, 10000, 2e-04)`, og `4. dpois(x, 2)`
 
@@ -622,7 +621,7 @@ head(distributions,n=10)
 > hvussu væl samsvara binomialfordeilingarnar nú við poissonfordeilingina?
 
     '1.dbinom()' samvara ikki, men við størri eindir dbinom(), samsvara tær betri við '4.dpois'.
-    Tvs 2 og 3 av 'dbinom()' liggja øðiliga tætt við.
+    Tað sæst at 2 og 3 dbinom, tosa vit um smáar desimalar.
 
 > finn við brúk av poissonfordeilingini `dpois(x, 2)` sannlíkindini `P(x <= 3)` fyri at tú í mesta lagi fært 3 bitfeilir.
 
